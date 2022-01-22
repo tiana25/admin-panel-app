@@ -1,0 +1,21 @@
+<form [formGroup]="loginForm">
+    <div class="container" fxLayout="column" fxLayoutAlign="none center">
+        <div class="labels" fxLayout="column" fxLayoutAlign="start start">
+            <label class="login-label-small signup-label">Don’t have an account? <a class="link" [routerLink]="'/register'">Sign Up</a></label>
+            <label class="login-label"> Sign In to Synapse Internship </label>
+            <label class="login-label-small"> Sign in on our platform </label>
+        </div>
+        <mat-form-field appearance="none" class="login-field">
+            <input matInput placeholder="Username" formControlName="username">
+        </mat-form-field>
+        <mat-form-field appearance="none" class="login-field"> 
+            <input matInput placeholder="Password" type="password" formControlName="password">
+            <mat-hint appearance="none" class="hint" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"> Password must contain 6 or more symbols</mat-hint>
+        </mat-form-field>
+        <button class="submit-button" mat-flat-button 
+            [disabled]="!loginForm.valid"
+            type="submit" (click)="onSubmit()">
+            SIGN IN
+        </button>
+    </div>
+</form>

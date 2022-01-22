@@ -1,0 +1,39 @@
+<form [formGroup]="registerForm">
+    <div class="container" fxLayout="column" fxLayoutAlign="none center">
+        <div class="labels" fxLayout="column" fxLayoutAlign="start start">
+            <a class="link" [routerLink]="'/'">
+            <label class="login-label-small goback-label" fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon class="goback-icon">arrow_back</mat-icon> 
+                    <span> Go back </span>
+            </label>
+            </a>
+            <label class="login-label-small signup-label">Have an account? <a class="link" [routerLink]="'/'">Sign In</a></label>
+            <label class="login-label"> Sign up to Synapse Internship </label>
+            <label class="login-label-small"> Sign up on our platform </label>
+        </div>
+        <mat-form-field appearance="none" class="login-field">
+            <input matInput placeholder="Username" formControlName="username">
+        </mat-form-field>
+        <mat-form-field appearance="none" class="login-field"> 
+            <input matInput placeholder="Password" type="password" formControlName="password">
+            <mat-hint appearance="none" class="hint" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"> Password must contain 6 or more symbols </mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="none" class="login-field"> 
+            <input matInput placeholder="Confirm password" type="password" formControlName="confirmPassword">
+            <mat-hint appearance="none" class="hint" *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched"> Password must contain 6 or more symbols </mat-hint>
+        </mat-form-field>
+        <mat-error *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('password')?.touched && registerForm.hasError('passwordsNotMatching')">
+            Passwords are not the same
+        </mat-error>
+        <div class="wrapper-check-box">
+            <mat-checkbox class="register-check-box" color="primary" formControlName="agreement">
+                I have read the <a class="link" href="">Terms and Conditions</a>.
+            </mat-checkbox>
+        </div>
+        <button class="submit-button" mat-flat-button 
+            [disabled]="!registerForm.valid"
+            type="submit" (click)="onSubmit()">
+            SIGN UP NOW
+        </button>
+    </div>
+</form>

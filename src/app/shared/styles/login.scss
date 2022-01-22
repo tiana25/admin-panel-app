@@ -1,0 +1,94 @@
+.container {
+    font-family: 'Montserrat', sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-right: 60px;
+}
+
+.labels {
+    width: 100%;
+    max-width: 360px;
+    position: relative;
+}
+
+.login-label {
+    font-weight: 500;
+    font-size: 1.5em;
+    letter-spacing: -1.06px;
+    color: #212529;
+    margin-bottom: 4px;
+}
+
+.login-label-small {
+    font-weight: normal;
+    font-size: 0.9em;
+    color: #9EA0A5;
+    margin-bottom: 1.9em;
+}
+
+.signup-label {
+    position: absolute;
+    bottom: 100px;
+    right: 20px;
+}
+
+.link {
+    color: #9EA0A5;
+}
+
+.submit-button {
+    font-family: 'Montserrat', sans-serif;
+    width:100%;
+    max-width: 360px;
+    background-color: #0D7185;
+    color: #FFFFFF;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.9em;
+    letter-spacing: 0.25px;
+}
+
+.login-field {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 360px;
+    color: rgba(0, 0, 0, 0.6);
+    letter-spacing: -0.85px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: normal;
+    margin-bottom: 1.06em;
+    font-family: 'Montserrat', sans-serif;
+    max-width: 360px;
+    border: 1px solid #00000052;
+    padding: 0.8em 1em 0.8em 1em;
+    border-radius: 4px;
+    z-index: 30;
+    position: relative;
+}
+
+:host ::ng-deep .mat-form-field-infix {
+    width: auto !important;
+    border-top: 0px;
+    padding: 0px;
+}
+
+:host ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0;
+}
+
+.hint {
+    color: red;
+}
+
+:host ::ng-deep .mat-form-field-subscript-wrapper {
+    position: absolute;
+    top: 25px;
+    left: -18px;
+}
+
+mat-error, mat-hint {
+    width: 100%;
+    max-width: 360px;
+    font-size: 12px;
+}

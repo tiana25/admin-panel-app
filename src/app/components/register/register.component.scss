@@ -1,0 +1,22 @@
+@import "src/app/shared/styles/login.scss";
+
+.goback-label {
+    position: absolute;
+    bottom: 100px;
+    left: 0px;
+    cursor: pointer;
+}
+
+.register-check-box {
+    font-family: 'Montserrat', sans-serif;
+    color: #9EA0A5;
+    .link {
+        color: rgba(0, 0, 0, 0.6);;
+    }
+}
+
+.wrapper-check-box {
+    width: 100%;
+    max-width: 360px;
+    margin-bottom: 1.06em;
+}
