@@ -1,13 +1,13 @@
 <form [formGroup]="registerForm">
     <div class="container" fxLayout="column" fxLayoutAlign="none center">
         <div class="labels" fxLayout="column" fxLayoutAlign="start start">
-            <a class="link" [routerLink]="'/'">
+            <a class="link" [routerLink]="'/login'">
             <label class="login-label-small goback-label" fxLayout="row" fxLayoutAlign="center center">
                 <mat-icon class="goback-icon">arrow_back</mat-icon> 
                     <span> Go back </span>
             </label>
             </a>
-            <label class="login-label-small signup-label">Have an account? <a class="link" [routerLink]="'/'">Sign In</a></label>
+            <label class="login-label-small signup-label">Have an account? <a class="link" [routerLink]="'/login'">Sign In</a></label>
             <label class="login-label"> Sign up to Synapse Internship </label>
             <label class="login-label-small"> Sign up on our platform </label>
         </div>

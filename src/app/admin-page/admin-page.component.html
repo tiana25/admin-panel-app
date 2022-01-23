@@ -1,0 +1,36 @@
+<mat-toolbar class="nav" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="nav-logo" fxLayout="row" fxLayoutAlign="start center">
+        <div class="logo"><img src="assets/logo.png" alt="logo"></div>
+        <span>Synapse Internship</span>
+    </div>
+    <div class="nav-exit">
+        <a [routerLink]="'/login'" (click)="onLogout()">
+            <mat-icon>exit_to_app</mat-icon>
+        </a>
+    </div>
+</mat-toolbar>
+<div class="main" fxLayout="row">
+    <div class="sidenav">
+        <div class="user-icon">
+            <div class="circle-wrapper"><span class="username">ST</span></div>
+            <span class="team-name">Synapse Team</span>
+        </div>
+        <div class="line"></div>
+        <a class="products-label-link" [routerLink]="'/admin/productList'">
+            <div class="products-label" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="basket-icon">shopping_basket</mat-icon>
+                <span>Products</span>
+            </div>
+        </a>
+    </div>
+    <div class="content" fxLayout="column" fxLayoutAlign="space-between none">
+        <router-outlet></router-outlet>
+        <div class="footer">
+            <div class="line"></div>
+            <div class="footer-text" fxLayout="column" fxLayoutAlign="space-between start">
+                <label class="footer-text-label">© Synapse Internship. 2021</label>
+                <label class="footer-text-small">This is a version for test tasks for Angular developers</label>
+            </div>
+        </div>
+    </div>
+</div>

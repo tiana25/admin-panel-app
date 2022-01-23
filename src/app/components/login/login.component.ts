@@ -26,8 +26,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-      this.authService.login(this.loginForm.value).pipe(
-        map(res => res? console.log("Success!") : alert("This user doesn't exist!"))
-      ).subscribe();
+    this.authService.login(this.loginForm.value).pipe(
+      map(res => res? this.router.navigate(['admin']) : alert("This user doesn't exist!"))
+    ).subscribe();
   }
 }

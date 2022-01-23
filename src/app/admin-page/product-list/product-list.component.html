@@ -1,0 +1,20 @@
+<div class="products-wrapper">
+    <div class="product-descr" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="product-details">
+            <label class="product-name">Product Name</label>
+            <span>Description</span>
+        </div>
+        <div class="actions">Actions</div>
+    </div>
+    <div class="products-list">
+        <div *ngFor="let product of products" class="product-item" fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="product-details">
+                <label class="product-name">{{product.title}}</label>
+                <span>{{product.text}}</span>
+            </div>
+            <div class="btn-wrap">
+                <a [routerLink]="[product.id]"><button class="open-button" mat-flat-button>OPEN</button></a>
+            </div>
+        </div>
+    </div>
+</div>

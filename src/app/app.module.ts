@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
+import { AdminPageRoutingModule } from './admin-page/admin-page-routing.module'
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -12,20 +13,18 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { AdminPageComponent } from './components/admin-page/admin-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
     LoginPageComponent,
-    AdminPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AdminPageRoutingModule,
     BrowserAnimationsModule,
-
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

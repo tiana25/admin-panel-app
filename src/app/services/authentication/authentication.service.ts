@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoginComponent } from 'src/app/components/login/login.component';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -9,7 +8,7 @@ export interface User {
   password: string;
 };
 
-export const JWT_NAME = 'access-token';
+export const TKN_NAME = 'access-token';
 
 @Injectable({
   providedIn: 'root'
@@ -20,13 +19,18 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) { }
 
-  login(user: User): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}api/login/`, user)
+  login(user: User): Observable<boolean> {
+    return this.http.post<User>(`${this.apiUrl}api/login/`, user)
       .pipe(
         map((result: any) => {
+          localStorage.setItem(TKN_NAME, result.token);
           return result.success;
         })
       )
+  }
+
+  logout(): void {
+    localStorage.removeItem(TKN_NAME);
   }
 
   register(user: User): Observable<any> {
@@ -39,14 +43,10 @@ export class AuthenticationService {
         })
       )
   }
-  // login(user: LoginForm): Observable<any> {
-  //   return this.http.post<LoginForm>(`${this.apiUrl}api/login`, user)
-  //     .pipe(
-  //       map((token: any) => {
-  //         console.log('token');
-  //         return token;
-  //       })
-  //     )
-  // }
+
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem(TKN_NAME);
+    return !!token;
+  }
 
 }

@@ -1,0 +1,42 @@
+<div class="product-details-wrapper" fxLayout="row" fxLayoutAlign="start start">
+    <div class="product-image-wrapper">
+        <figure class="product-image">
+            <img src="/assets/mock.png" alt="Product">
+            <figcaption fxLayout="column" fxLayoutAlign="center center">
+                <span class="product-title">Product 1</span>
+                <span class="product-text">Lorem Ipsum</span>
+            </figcaption>
+        </figure>
+    </div>
+    <div class="reviews">
+        <div class="reviews-wrapper">
+            <div class="review-field-wrapper">
+                <div class="review-field-title">
+                    Your review
+                </div>
+                <div class="line"></div>
+                <textarea placeholder="Type your review..."></textarea>
+                <div class="review-stars" fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>star</mat-icon>
+                    <mat-icon>star</mat-icon>
+                    <mat-icon>star</mat-icon>
+                    <mat-icon>star</mat-icon>
+                    <mat-icon>star</mat-icon>
+                </div>
+                <div class="submit-button">
+                    <button mat-flat-button>SUBMIT REVIEW</button>
+                </div>
+            </div>
+        </div>
+        <div class="reviews-container">
+            <div class="review-item" fxLayout="column" fxLayoutAlign="start start">
+                <div class="review-user" fxLayout="row">
+                    <span class="review-username"><b>User1</b></span>
+                    <span class="review-time">at 14:08, 10 Nov 2021</span>
+                </div>
+                <span class="review-rate"></span>
+                <span class="review-message"><i>This product is very good</i></span>
+            </div>
+        </div>
+    </div>
+</div>
