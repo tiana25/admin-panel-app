@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Product, ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -6,14 +8,22 @@ import { Product, ProductService } from 'src/app/services/product/product.servic
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
 
   products: Product[];
 
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.productService.getProducts().subscribe((products) => this.products = products);
+    this.productService.getProducts().
+    pipe(takeUntil(this.destroy$)).
+    subscribe((products) => this.products = products);
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }

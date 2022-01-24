@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Observable } from 'rxjs';
-import { pluck, switchMap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { pluck, switchMap, takeUntil } from 'rxjs/operators';
 import { ProductService } from 'src/app/services/product/product.service';
 import { Review } from 'src/app/shared/models/review.model';
 
@@ -12,7 +12,9 @@ import { Review } from 'src/app/shared/models/review.model';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, OnDestroy {
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   currentRate = 0;
   img: string;
@@ -34,6 +36,7 @@ export class ProductComponent implements OnInit {
     this.rate = new FormControl('', Validators.required);
 
     this.reviews$ = this.activatedRoute.params.pipe(
+      takeUntil(this.destroy$),
       pluck('id'),
       switchMap((id) => {
         this.id = id;
@@ -44,7 +47,7 @@ export class ProductComponent implements OnInit {
       )
     );
 
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.activatedRoute.params.pipe(takeUntil(this.destroy$)).subscribe((params: Params) => {
       this.id = params.id;
       this.productService.getProducts().subscribe((products) => {
         let product = products.filter(prod => prod.id == this.id);
@@ -67,5 +70,10 @@ export class ProductComponent implements OnInit {
     } else {
       alert('Before submit leave a review!')
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

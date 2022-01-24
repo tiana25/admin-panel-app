@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
-import { map } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { Router } from "@angular/router";
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   registerForm: FormGroup;
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private authService: AuthenticationService,
@@ -41,8 +44,14 @@ export class RegisterComponent implements OnInit {
       alert('Invalid value form!');
     } else {
       this.authService.register(this.registerForm.value).pipe(
-        map(user => this.router.navigate(['login']))
+        map(user => this.router.navigate(['login'])),
+        takeUntil(this.destroy$)
       ).subscribe();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }
