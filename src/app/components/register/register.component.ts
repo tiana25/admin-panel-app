@@ -38,10 +38,10 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     if (this.registerForm.invalid){
-      console.log("Invalid");
+      alert('Invalid value form!');
     } else {
       this.authService.register(this.registerForm.value).pipe(
-        map(user => this.router.navigate(['admin']))
+        map(user => this.router.navigate(['login']))
       ).subscribe();
     }
   }

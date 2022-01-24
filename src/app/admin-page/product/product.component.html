@@ -3,8 +3,8 @@
         <figure class="product-image">
             <img src="/assets/mock.png" alt="Product">
             <figcaption fxLayout="column" fxLayoutAlign="center center">
-                <span class="product-title">Product 1</span>
-                <span class="product-text">Lorem Ipsum</span>
+                <span class="product-title">{{product_title}}</span>
+                <span class="product-text">{{product_text}}</span>
             </figcaption>
         </figure>
     </div>
@@ -15,27 +15,25 @@
                     Your review
                 </div>
                 <div class="line"></div>
-                <textarea placeholder="Type your review..."></textarea>
+                <textarea [formControl]="rate" placeholder="Type your review..."></textarea>
                 <div class="review-stars" fxLayout="row" fxLayoutAlign="start center">
-                    <mat-icon>star</mat-icon>
-                    <mat-icon>star</mat-icon>
-                    <mat-icon>star</mat-icon>
-                    <mat-icon>star</mat-icon>
-                    <mat-icon>star</mat-icon>
+                    <ngb-rating class="rating" [max]="5" [(rate)]="currentRate" [readonly]="false"></ngb-rating>
                 </div>
-                <div class="submit-button">
+                <div class="submit-button" (click)="onSubmitReview()">
                     <button mat-flat-button>SUBMIT REVIEW</button>
                 </div>
             </div>
         </div>
-        <div class="reviews-container">
-            <div class="review-item" fxLayout="column" fxLayoutAlign="start start">
+        <div *ngIf="(reviews$ | async)" class="reviews-container">
+            <div class="review-item" *ngFor="let review of (reviews$ | async)" fxLayout="column" fxLayoutAlign="start start">
                 <div class="review-user" fxLayout="row">
-                    <span class="review-username"><b>User1</b></span>
-                    <span class="review-time">at 14:08, 10 Nov 2021</span>
+                    <span class="review-username"><b>{{review?.created_by.username}}</b></span>
+                    <span class="review-time">at {{review?.created_at | date:'h:mm, d MMM y'}}</span>
                 </div>
-                <span class="review-rate"></span>
-                <span class="review-message"><i>This product is very good</i></span>
+                <span class="review-rate">
+                    <ngb-rating class="rating-readonly" [max]="5" [(rate)]="review.rate" [readonly]="true"></ngb-rating>
+                </span>
+                <span class="review-message"><i>{{review?.text}}</i></span>
             </div>
         </div>
     </div>

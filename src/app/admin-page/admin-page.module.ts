@@ -10,6 +10,8 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductComponent } from './product/product.component';
 import { AdminPageRoutingModule } from './admin-page-routing.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     FlexLayoutModule,
     MatButtonModule,
     MatFormFieldModule,
-    AdminPageRoutingModule
+    AdminPageRoutingModule,
+    NgbModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminPageModule { }

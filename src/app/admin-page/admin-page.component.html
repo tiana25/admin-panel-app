@@ -1,3 +1,16 @@
+<div class="sidenav">
+    <div class="user-icon">
+        <div class="circle-wrapper"><span class="username">ST</span></div>
+        <span class="team-name">Synapse Team</span>
+    </div>
+    <div class="line"></div>
+    <a class="products-label-link" [routerLink]="'/admin/productList'">
+        <div class="products-label" fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="basket-icon">shopping_basket</mat-icon>
+            <span>Products</span>
+        </div>
+    </a>
+</div>
 <mat-toolbar class="nav" fxLayout="row" fxLayoutAlign="space-between center">
     <div class="nav-logo" fxLayout="row" fxLayoutAlign="start center">
         <div class="logo"><img src="assets/logo.png" alt="logo"></div>
@@ -10,21 +23,10 @@
     </div>
 </mat-toolbar>
 <div class="main" fxLayout="row">
-    <div class="sidenav">
-        <div class="user-icon">
-            <div class="circle-wrapper"><span class="username">ST</span></div>
-            <span class="team-name">Synapse Team</span>
-        </div>
-        <div class="line"></div>
-        <a class="products-label-link" [routerLink]="'/admin/productList'">
-            <div class="products-label" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon class="basket-icon">shopping_basket</mat-icon>
-                <span>Products</span>
-            </div>
-        </a>
-    </div>
     <div class="content" fxLayout="column" fxLayoutAlign="space-between none">
-        <router-outlet></router-outlet>
+        <div class="products-wrap">
+            <router-outlet></router-outlet>
+        </div>
         <div class="footer">
             <div class="line"></div>
             <div class="footer-text" fxLayout="column" fxLayoutAlign="space-between start">

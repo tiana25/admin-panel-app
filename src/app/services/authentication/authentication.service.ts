@@ -38,7 +38,6 @@ export class AuthenticationService {
       {username: user.username, password: user.password})
       .pipe(
         map((user: any) => {
-          console.log(user);
           return user;
         })
       )
@@ -47,6 +46,10 @@ export class AuthenticationService {
   isAuthenticated(): boolean {
     const token = localStorage.getItem(TKN_NAME);
     return !!token;
+  }
+
+  getToken(): string | null{
+    return localStorage.getItem(TKN_NAME);
   }
 
 }

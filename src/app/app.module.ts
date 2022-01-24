@@ -13,6 +13,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatButtonModule,
     FlexLayoutModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

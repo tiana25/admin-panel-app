@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
-import { Product } from 'src/app/services/product/product.service';
+import { ProductService } from 'src/app/services/product/product.service';
+import { Review } from 'src/app/shared/models/review.model';
 
 @Component({
   selector: 'app-product',
@@ -12,21 +14,58 @@ import { Product } from 'src/app/services/product/product.service';
 })
 export class ProductComponent implements OnInit {
 
-  product$: Observable<Product>
+  currentRate = 0;
+  img: string;
+  product_text: string;
+  product_title: string;
+  id: number;
+
+  rate: FormControl;
+
+  reviews$: Observable<Review[]>
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private productService: ProductService,
     ) { }
 
   ngOnInit(): void {
-    this.product$ = this.activatedRoute.params.pipe(
+    this.rate = new FormControl('', Validators.required);
+
+    this.reviews$ = this.activatedRoute.params.pipe(
       pluck('id'),
-      switchMap((id) => 
-        this.http.get<Product>(
+      switchMap((id) => {
+        this.id = id;
+        return this.http.get<Review[]>(
           `http://smktesting.herokuapp.com/api/reviews/${id}`
         )
+      }
       )
     );
+
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.id = params.id;
+      this.productService.getProducts().subscribe((products) => {
+        let product = products.filter(prod => prod.id == this.id);
+        if (product) {
+          this.img = product[0].img;
+          this.product_text = product[0].text;
+          this.product_title = product[0].title;
+        }
+      });
+    });
+  }
+
+  onSubmitReview(): void {
+    if(this.currentRate && this.rate.value){
+      const rateObj = {
+        rate: this.currentRate,
+        text: this.rate.value
+      }
+      this.productService.createRating(rateObj, this.id).subscribe(() => alert('Review created!'));
+    } else {
+      alert('Before submit leave a review!')
+    }
   }
 }

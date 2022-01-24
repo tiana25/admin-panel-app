@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Rate } from 'src/app/shared/models/rate.model';
+import { AuthenticationService } from '../authentication/authentication.service';
 
 
 export interface Product {
@@ -19,7 +21,7 @@ export class ProductService {
 
   private apiUrl = 'http://smktesting.herokuapp.com/'
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthenticationService) { }
 
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.apiUrl}api/products/`)
@@ -28,6 +30,19 @@ export class ProductService {
         return result;
       })
     )
+  }
+
+  createRating(rate: Rate, id: number): Observable<any> {
+    var header = {
+      headers: new HttpHeaders()
+        .set('Authorization',  `Token ${(this.authService.getToken())}`)
+    }
+    return this.http.post<any>(`${this.apiUrl}api/reviews/${id}`, rate, header)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      )
   }
 
 }
