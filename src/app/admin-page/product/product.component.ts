@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -28,7 +27,6 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private http: HttpClient,
     private productService: ProductService,
     ) { }
 
@@ -40,11 +38,7 @@ export class ProductComponent implements OnInit, OnDestroy {
       pluck('id'),
       switchMap((id) => {
         this.id = id;
-        return this.http.get<Review[]>(
-          `http://smktesting.herokuapp.com/api/reviews/${id}`
-        )
-      }
-      )
+        return this.productService.getReviewById(id)})
     );
 
     this.activatedRoute.params.pipe(takeUntil(this.destroy$)).subscribe((params: Params) => {
@@ -67,6 +61,14 @@ export class ProductComponent implements OnInit, OnDestroy {
         text: this.rate.value
       }
       this.productService.createRating(rateObj, this.id).subscribe(() => alert('Review created!'));
+      this.reviews$ = this.activatedRoute.params.pipe(
+        takeUntil(this.destroy$),
+        pluck('id'),
+        switchMap((id) => {
+          this.id = id;
+          return this.productService.getReviewById(id);
+        })
+      );
     } else {
       alert('Before submit leave a review!')
     }

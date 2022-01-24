@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Rate } from 'src/app/shared/models/rate.model';
+import { Review } from 'src/app/shared/models/review.model';
 import { AuthenticationService } from '../authentication/authentication.service';
 
 
@@ -45,4 +46,9 @@ export class ProductService {
       )
   }
 
+  getReviewById(id: number): Observable<Review[]> {
+    return this.http.get<Review[]>(`http://smktesting.herokuapp.com/api/reviews/${id}`)
+      .pipe(
+        map((res: Review[]) => res))
+  }
 }
